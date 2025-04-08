@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.catigeart.notice.mapper.RolePermissionMapper">
+
+    <!-- 根据角色 ID 删除角色权限 -->
+    <delete id="deleteByRoleId" parameterType="java.lang.Integer">
+        DELETE FROM role_permission WHERE role_id = #{roleId}
+    </delete>
+
+    <!-- 根据角色 ID 查询角色权限列表 -->
+    <select id="findByRoleId" resultType="pers.catigeart.notice.entity.RolePermission">
+        SELECT * FROM role_permission WHERE role_id = #{roleId}
+    </select>
+
+    <!-- 批量插入角色权限 -->
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO role_permission (role_id, permission_id)
+        VALUES
+        <foreach collection="rolePermissions" item="item" separator=",">
+            (#{item.roleId}, #{item.permissionId})
+        </foreach>
+    </insert>
+
+</mapper>
